@@ -47,4 +47,4 @@ class Comment(models.Model):
         return self.content[:10]
 
     def __str__(self):
-        return self.short_content
+        return self.short_content()
