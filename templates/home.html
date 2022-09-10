@@ -4,6 +4,20 @@
 
 {% block title %}home.html{% endblock %}
 
+{% block extra-style %}
+    <style>
+        .my-img-h300 {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .my-post-title {
+            height: 60px;
+        }
+    </style>
+{% endblock %}
+
 {% block content %}
     <!-- Blog Grid-->
     <section class="page-section bg-light" id="portfolio">
@@ -20,7 +34,7 @@
                             <div class="portfolio-hover">
                                 <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                             </div>
-                            <img class="img-fluid" :src="`post.image`" alt="..."/>
+                            <img class="img-fluid my-img-h300" :src="post.image" alt="..."/>
                         </a>
                         <div class="portfolio-caption">
                             <div class="portfolio-caption-subheading text-muted">[[ post.category ]]</div>
@@ -29,6 +43,20 @@
                     </div>
                 </div>
             </div>
+            <!-- 페이지네이션 -->
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1">Prev</a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">Next</a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </section>
     <!-- Iam-->
