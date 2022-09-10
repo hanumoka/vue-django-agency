@@ -8,13 +8,16 @@
                 post: {},
                 prevPost: {},
                 nextPost: {},
+                cateList: [],
+                tagList: [],
             }
         },
 
         created() {
             console.log("created()...")
-            const postId = location.pathname.split('/')[3]
+            const postId = location.pathname.split('/')[3];
             this.fetchPostDetail(postId);
+            this.fetchCateTagList();
         },
 
         methods: {
@@ -30,6 +33,20 @@
                     })
                     .catch(err => {
                         console.log("FETCH POSTDETAIL GET ERR.RESPONSE", err.response);
+                        alert(`${err.response.status} ${err.response.statusText}`);
+                    });
+            },
+            fetchCateTagList() {
+                console.log("fetchCateTagList()... ");
+
+                axios.get(`/api/catetag/`)
+                    .then(res => {
+                        console.log("FETCH CATE-TAG-LIST GET RES", res);
+                        this.cateList = res.data.cateList;
+                        this.tagList = res.data.tagList;
+                    })
+                    .catch(err => {
+                        console.log("FETCH CATE-TAG-LIST GET ERR.RESPONSE", err.response);
                         alert(`${err.response.status} ${err.response.statusText}`);
                     });
             },
