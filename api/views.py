@@ -11,7 +11,19 @@ from blog.models import Post, Category, Tag
 
 # Create your views here.
 class ApiPostLV(BaseListView):
-    model = Post
+    # model = Post
+
+    # get_queryset 메소드의 결과값이 context["object_list"] 에 전달된다. 해당 메소드를 정의하면 위 model = Post 선언이 불필요해진다.
+    def get_queryset(self):
+        paramCate = self.request.GET.get('category')
+        paramTag = self.request.GET.get('tag')
+        if paramCate:
+            qs = Post.objects.filter(category__name__iexact=paramCate)
+        elif paramTag:
+            qs = Post.objects.filter(tags__name__iexact=paramTag)
+        else:
+            qs = Post.objects.all()
+        return qs
 
     def render_to_response(self, context, **response_kwargs):
         qs = context["object_list"]
