@@ -15,6 +15,11 @@
         .my-content {
             white-space: pre-wrap;
         }
+
+        .my-link:hover {
+            cursor: pointer;
+            font-style: italic;
+        }
     </style>
 {% endblock %}
 
@@ -97,13 +102,13 @@
                     <div class="card mb-4">
                         <div class="card-header">Prev Post</div>
                         <div class="card-body">
-                            This is Previous post Title
+                            <h5 class="text-primary my-link" @click="fetchPostDetail(prevPost.id)">[[ prevPost.title ]]</h5>
                         </div>
                     </div>
                     <div class="card mb-4">
                         <div class="card-header">Next Post</div>
                         <div class="card-body">
-                            This is Next post Title
+                            <h5 class="text-primary my-link" @click="fetchPostDetail(nextPost.id)">[[ nextPost.title ]]</h5>
                         </div>
                     </div>
                     <!-- Categories widget-->

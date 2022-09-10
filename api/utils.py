@@ -1,3 +1,6 @@
+from django.core.exceptions import ObjectDoesNotExist
+
+
 def obj_to_post(obj, flag=True):
     """
     obj 의 각 속성을 serialize 해서, dict 로 변환한다.
@@ -34,3 +37,25 @@ def obj_to_post(obj, flag=True):
         del post['tags'], post['update_dt'], post['description'], post['content']
 
     return post
+
+
+def prev_next_post(obj):
+    try:
+        prevObj = obj.get_previous_by_update_dt()
+        prevDict = {
+            'id': prevObj.id,
+            'title': prevObj.title,
+        }
+    except ObjectDoesNotExist:
+        prevDict = {}
+
+    try:
+        nextObj = obj.get_next_by_update_dt()
+        nextDict = {
+            'id': nextObj.id,
+            'title': nextObj.title,
+        }
+    except ObjectDoesNotExist:
+        nextDict = {}
+
+    return prevDict, nextDict
