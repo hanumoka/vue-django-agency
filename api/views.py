@@ -1,10 +1,11 @@
 from django.views import View
 from django.views.generic.detail import BaseDetailView
+from django.views.generic.edit import BaseCreateView
 from django.views.generic.list import BaseListView
 from django.http import JsonResponse
 
 from api.utils import obj_to_post, prev_next_post, obj_to_comment
-from blog.models import Post, Category, Tag
+from blog.models import Post, Category, Tag, Comment
 
 
 # BaseListView, BaseDetailView는 모델이 한개일때 사용하는 뷰이다.
@@ -76,3 +77,16 @@ class ApiPostLikeDV(BaseDetailView):
         obj.like += 1
         obj.save()
         return JsonResponse(data=obj.like, safe=False, status=200)
+
+
+class ApiCommentCV(BaseCreateView):
+    model = Comment
+    fields = '__all__'
+
+    def form_valid(self, form):
+        self.object = form.save()
+        comment = obj_to_comment(self.object)
+        return JsonResponse(data=comment, safe=True, status=201)
+
+    def form_invalid(self, form):
+        return JsonResponse(data=form.errors, safe=True, status=400)
