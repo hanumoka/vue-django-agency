@@ -62,3 +62,13 @@ class ApiCateTagView(View):
         }
 
         return JsonResponse(data=jsonData, safe=True, status=200)
+
+
+class ApiPostLikeDV(BaseDetailView):
+    model = Post
+
+    def render_to_response(self, context, **response_kwargs):
+        obj = context['object']
+        obj.like += 1
+        obj.save()
+        return JsonResponse(data=obj.like, safe=False, status=200)

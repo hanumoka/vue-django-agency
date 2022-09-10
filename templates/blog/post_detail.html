@@ -36,7 +36,8 @@
                     <span> [[ post.update_dt ]] &emsp;</span> &emsp;&emsp;
 
                     <i class="fas fa-copyright"></i> &nbsp;&nbsp;&nbsp;
-                    <span class="text-success my-link" @click="serverPage(post.category, '')"> [[ post.category ]] &emsp;</span> &emsp; &emsp;
+                    <span class="text-success my-link" @click="serverPage(post.category, '')"> [[ post.category ]] &emsp;</span>
+                    &emsp; &emsp;
 
                     <i class="fas fa-tag"></i> &nbsp;&nbsp; &nbsp;
                     <span v-for="(tag, index) in post.tags" :key="index">
@@ -45,7 +46,7 @@
                     </span>&emsp;&emsp;
 
                     <i class="fas fa-heart"></i> &nbsp;&nbsp;
-                    <span> [[ post.like ]] &emsp;</span> &emsp;&emsp;
+                    <span class="text-success my-link" @click="likeCount(post.id)"> [[ post.like ]] &emsp;</span> &emsp;&emsp;
                 </p>
                 <hr>
             </div>
@@ -55,8 +56,7 @@
                     <article>
                         <!-- Preview image figure-->
                         <figure class="mb-4">
-                            <img class="img-fluid rounded my-img-h300"
-                                 :src="post.image" alt="..."/>
+                            <img class="img-fluid rounded my-img-h300" :src="post.image" alt="..."/>
                         </figure>
                         <!-- Post content-->
                         <div class="mb-5">
@@ -70,8 +70,11 @@
                         <div class="card bg-light">
                             <div class="card-body">
                                 <!-- Comment form-->
-                                <form class="mb-4"><textarea class="form-control" rows="3"
-                                                             placeholder="Join the discussion and leave a comment!"></textarea>
+                                <form class="mb-4">
+                                    <textarea class="form-control"
+                                              rows="3"
+                                              placeholder="Join the discussion and leave a comment!">
+                                    </textarea>
                                 </form>
                                 <!-- Comment with nested comments-->
                                 <div class="d-flex mb-4">
@@ -123,7 +126,8 @@
                         <div class="card-body">
                             <span v-for="(category, index) in cateList" :key="category.id">
                                 <span v-if="index !== 0">&nbsp</span>
-                                <span class="text-success my-link" @click="serverPage(category, '')">[[ category ]]</span>
+                                <span class="text-success my-link"
+                                      @click="serverPage(category, '')">[[ category ]]</span>
                             </span>
                         </div>
                     </div>
