@@ -13,6 +13,7 @@ from blog.models import Post, Category, Tag, Comment
 # Create your views here.
 class ApiPostLV(BaseListView):
     # model = Post
+    paginate_by = 3
 
     # get_queryset 메소드의 결과값이 context["object_list"] 에 전달된다. 해당 메소드를 정의하면 위 model = Post 선언이 불필요해진다.
     def get_queryset(self):
@@ -29,7 +30,18 @@ class ApiPostLV(BaseListView):
     def render_to_response(self, context, **response_kwargs):
         qs = context["object_list"]
         postList = [obj_to_post(obj, False) for obj in qs]
-        return JsonResponse(data=postList, safe=False, status=200)
+
+        pageCnt = context['paginator'].num_pages
+        curPage = context['page_obj'].number
+        # print(pageCnt, curPage)
+
+        jsonData = {
+            'postList': postList,
+            'pageCnt': pageCnt,
+            'curPage': curPage,
+        }
+
+        return JsonResponse(data=jsonData, safe=True, status=200)
 
 
 class ApiPostDV(BaseDetailView):

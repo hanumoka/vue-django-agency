@@ -15,6 +15,10 @@
         .my-post-title {
             height: 60px;
         }
+
+        .my-link:hover {
+            cursor: pointer;
+        }
     </style>
 {% endblock %}
 
@@ -45,25 +49,26 @@
                                 [[ post.category ]] &emsp;
                                 <i class="fas fa-heart text-danger"></i> [[ post.like ]]
                             </div>
-                            <div class="portfolio-caption-heading">[[ post.title ]]</div>
+                            <div class="portfolio-caption-heading my-post-title">[[ post.title ]]</div>
                         </div>
                     </div>
                 </div>
             </div>
+
             <!-- 페이지네이션 -->
-            <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1">Prev</a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">Next</a>
-                    </li>
-                </ul>
-            </nav>
+            <ul class="pagination justify-content-center">
+                <li :class="prevClass">
+                    <div @click="prevPage" class="page-link">Prev</div>
+                </li>
+
+                <li v-for="page in pages" :class="pageClass(page)">
+                    <div @click="pageChanged(page)" class="page-link" href="#">[[ page ]]</div>
+                </li>
+
+                <li :class="nextClass">
+                    <div @click="nextPage" class="page-link">Next</div>
+                </li>
+            </ul>
         </div>
     </section>
     <!-- Iam-->
